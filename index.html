@@ -1,0 +1,36 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Music Player Online</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>    
+
+<body>
+<link rel="stylesheet" href="style.css">    
+
+<h1 class="CenterColor">Music Player Online</h1>
+<h2 class="CenterColor">Used some code from github in order to assist along with AI. </h2>
+<div id="searchContainer">
+    <input type="text" id="searchInput" onkeyup="searchButtons()" placeholder="Search for games" style="background-color: rgb(40, 218, 218)">
+</div>
+
+<div class="button-container"> 
+    <p class="button"><a style="text-decoration:none" href=""><img src="Images/polytrack.png">Waterflame</a></p>
+    
+
+</div>
+
+<script>
+function searchButtons() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const buttons = document.querySelectorAll(".button");
+
+    buttons.forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        btn.style.display = text.includes(input) ? "flex" : "none";
+    });
+}
+</script>
+
+</body>
+</html>
