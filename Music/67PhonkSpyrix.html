@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <title>Music Player</title>
+  </head>
+
+  <body>
+
+    <h1>My Music Player</h1>
+
+    <div class="song">
+
+      <h2>67 PHONK – Spyrix</h2>
+
+      <!-- ONE toggle button -->
+      <button class="PlayButton"onclick="togglePlay('player1', this)"></button>
+
+      <button onclick="rewind5('player1')">⏪ Rewind 5s</button>
+      <button onclick="forward5('player1')">⏩ Forward 5s</button>
+
+      <input type="range" id="seek1" value="0" min="0" max="100" step="0.1">
+
+      <video id="player1" playsinline style="width:1px; height:1px; opacity:0;"
+             src="AllMusic/67PHONK.mp3"></video>
+
+    </div>
+
+    <script>
+      function togglePlay(id, btn) {
+        const player = document.getElementById(id);
+
+        if (player.paused) {
+          player.play();
+          btn.classList.add("paused");
+        } else {
+          player.pause();
+          btn.classList.remove("paused");
+        }
+      }
+
+      function rewind5(id) {
+        const p = document.getElementById(id);
+        p.currentTime = Math.max(0, p.currentTime - 5);
+      }
+
+      function forward5(id) {
+        const p = document.getElementById(id);
+        p.currentTime = Math.min(p.duration, p.currentTime + 5);
+      }
+
+      function attachSeek(playerId, seekId) {
+        const player = document.getElementById(playerId);
+        const seek = document.getElementById(seekId);
+
+        player.addEventListener('timeupdate', () => {
+          if (!player.duration) return;
+          seek.value = (player.currentTime / player.duration) * 100;
+        });
+
+        seek.addEventListener('input', () => {
+          if (!player.duration) return;
+          player.currentTime = (seek.value / 100) * player.duration;
+        });
+      }
+
+      attachSeek('player1', 'seek1');
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,119 @@
+a:link, a:visited, a:hover, a:active {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+/* Body and Headings */
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(0, 0, 0); /* Black color for the webpage  */
+  color: rgb(255, 255, 255); /* White text color */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2 {
+  text-align: center;
+  color: white;
+}
+
+/* Search Container */
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1ED760; /* Set background color to spotify green  */
+  color: white; /* Set text color to white */
+  font-size: 16px;
+  width: 300px;
+  outline: none;
+}
+
+/* Button Container */
+.button-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+  justify-content: center;
+  text-decoration: none;
+}
+
+.button-wrapper {
+  position: relative; /* Make the wrapper a positioned element */
+  display: inline-block; /* Allow the ribbon to position relative to the button */
+}
+
+
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 15px 20px; /* Enlarge the padding */
+  background-color: #1ED760 ; /* Spotify green button style */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  max-width: 200px;
+  width: 100%; /* Make button width 100% */
+}
+
+.PlayButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #1ED760;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+  font-size: 0;
+  
+}
+
+/* PLAY ICON (triangle) */
+.PlayButton::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 18px solid black;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  margin-left: 4px;
+}
+
+/* PAUSE ICON (two bars) */
+.PlayButton.paused::before {
+  content: "";
+  width: 14px;
+  height: 18px;
+  background: linear-gradient(
+    to right,
+    black 0,
+    black 5px,
+    transparent 5px,
+    transparent 9px,
+    black 9px,
+    black 14px
+  );
+  border: none;
+  margin-left: 0;
+  
+
