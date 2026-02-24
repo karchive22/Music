@@ -196,3 +196,22 @@ input[type="range"]::-moz-range-thumb {
     width: 100%;
     background-color: #1ED760;
 }
+a.BackButton {
+  background-color: #1ED760 !important;
+  color: black !important;
+  text-decoration: none !important;
+  border: none !important;
+
+  display: inline-flex !important;   /* behave like a button */
+  width: auto !important;            /* shrink to fit content */
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  margin: 10px auto !important;      /* center horizontally */
+}
