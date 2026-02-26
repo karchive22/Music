@@ -48,20 +48,13 @@ function searchButtons() {
 </script>
 <script>
 // Redirect user to the quiz page OR skip if already unlocked
-function explicitWarning() {
-    // If device is already unlocked, allow access immediately
-    if (localStorage.getItem("explicitFullyUnlocked") === "true") {
-        return true;
-    }
 
-    // If quiz not completed or code not entered yet → send to quiz page
-    window.location.href = "Music/SecretCode/index.html";
-    return false;
-}
+    
 </script>
 
 </body>
 </html>
+
 
 
 
