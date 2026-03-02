@@ -1,3 +1,4 @@
+// GLOBAL ACCESS CHECK — prevents URL bypass
 (function() {
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -8,8 +9,20 @@
 
     const unlocked = getCookie("quizPassed") === "true" || getCookie("quizOverride") === "true";
 
-    if (!unlocked) {
-        // Works locally AND on GitHub Pages
-        window.location.href = window.location.origin + window.location.pathname.replace(/\/Music\/.*/, "/Music/quiz.html");
+    // Pages that NEVER require quiz
+    const allowedPages = [
+        "/",
+        "/index.html",
+        "/quiz.html",
+        "/Music/SecretCode/index.html",
+        "/style.css",
+        "/favicon.png"
+    ];
+
+    const current = window.location.pathname;
+
+    // If user tries to open ANY Music/ page directly → redirect
+    if (!unlocked && current.startsWith("/Music/") && !allowedPages.includes(current)) {
+        window.location.href = "/quiz.html";
     }
 })();
