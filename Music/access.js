@@ -9,6 +9,6 @@
     const unlocked = getCookie("quizPassed") === "true" || getCookie("quizOverride") === "true";
 
     if (!unlocked) {
-        window.location.href = "/quiz.html";
+        window.location.href = "../quiz.html";
     }
 })();
