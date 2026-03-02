@@ -23,7 +23,7 @@ alert("Do not use this to blast up in public places like schools, etc. I am not 
            style="padding:10px; width:250px; font-size:16px;">
     <button onclick="unlockPassword()" style="padding:10px; font-size:16px;">Unlock</button>
 </div>
-<h3> By typing the code, Your agreeing to these rules: </h3>
+<h3> By typing the code, <a href="Music/SecretCode/index.html">Your agreeing to the rules</a></h3>
 <p class="CenterColor" style="font-size: 12px; cursor: pointer; text-decoration: underline;" onclick="teacherOverridePrompt()">Quiz Override Code</p>
 
 <div id="searchContainer">
@@ -94,7 +94,7 @@ function explicitWarning() {
         return true;
     } else {
         // redirect to quiz in root directory
-        window.location.href = "quiz.html/";
+        window.location.href = "quiz.html";
         return false;
     }
 }
