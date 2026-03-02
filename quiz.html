@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Music Player Online – Quiz</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+<link rel="stylesheet" href="style.css">
+
+<h1 class="CenterColor">Digital Citizenship Quiz</h1>
+<h2 class="CenterColor">You must pass with no more than 2 incorrect answers.</h2>
+<h2 class="CenterColor">By Doing the quiz and getting it correct, <a href="Music/SecretCode/index.html">Your agreeing to the rules</a></h2>
+<div id="quizContainer" class="CenterColor"></div>
+<div id="result" class="CenterColor" style="margin-top:20px;"></div>
+
+<div class="CenterColor" style="margin-top:20px;">
+    <button id="submitBtn">Submit Quiz</button>
+    <button id="restartBtn" style="display:none;" onclick="restartQuiz()">Restart Quiz</button>
+</div>
+
+<script>
+/* ------------------------------
+   COOKIE HELPERS
+--------------------------------*/
+function setCookie(name, value, days) {
+    const maxAge = days * 24 * 60 * 60;
+    document.cookie = `${name}=${value}; path=/; max-age=${maxAge}`;
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+}
+
+/* ------------------------------
+   BYPASS IF ALREADY UNLOCKED
+--------------------------------*/
+(function checkBypass() {
+    if (getCookie("quizPassed") === "true" || getCookie("quizOverride") === "true") {
+        window.location.href = "/index.html";
+    }
+})();
+
+/* ------------------------------
+   QUESTION POOL (20 unique)
+--------------------------------*/
+const baseQuestions = [
+    {
+        q: "How should the songs on this website be used?",
+        options: [
+            "Respectfully, at safe volume, and not blasted in public places like schools",
+            "As loud as possible anywhere",
+            "To annoy others",
+            "To ignore rules"
+        ],
+        correct: 0
+    },
+    {
+        q: "What does DMCA mainly deal with?",
+        options: [
+            "Copyright and protection of digital media like music",
+            "Speaker loudness",
+            "School lunch rules",
+            "Internet speed limits"
+        ],
+        correct: 0
+    },
+    {
+        q: "If you want to play this music in a classroom, what should you do first?",
+        options: [
+            "Ask the teacher or adult in charge for permission",
+            "Just play it without asking",
+            "Turn it to max volume",
+            "Hide the device"
+        ],
+        correct: 0
+    },
+    {
+        q: "What should you do if the music is distracting others?",
+        options: [
+            "Turn it down or turn it off",
+            "Turn it up more",
+            "Move closer to them",
+            "Ignore them"
+        ],
+        correct: 0
+    },
+    {
+        q: "What permission do you need to use someone else’s music in a public video?",
+        options: [
+            "Permission or a proper license from the owner",
+            "No permission at all",
+            "Only permission from a friend",
+            "Only permission from your internet provider"
+        ],
+        correct: 0
+    },
+    {
+        q: "Why is it important to follow DMCA and copyright rules?",
+        options: [
+            "To respect creators and avoid legal or school consequences",
+            "Because rules are random",
+            "So music sounds louder",
+            "So the internet works faster"
+        ],
+        correct: 0
+    },
+    {
+        q: "If you see someone misusing this site to break rules, what is a good response?",
+        options: [
+            "Encourage them to stop and follow the rules",
+            "Join them",
+            "Record them and post it online",
+            "Turn the volume up more"
+        ],
+        correct: 0
+    },
+    {
+        q: "Is it okay to download and re-upload songs from this site as your own?",
+        options: [
+            "No, that can violate copyright and DMCA rules",
+            "Yes, if you change the file name",
+            "Yes, if you say 'no copyright intended'",
+            "Yes, if you only share with one friend"
+        ],
+        correct: 0
+    },
+    {
+        q: "If a teacher says not to use this website right now, what should you do?",
+        options: [
+            "Close the site and follow instructions",
+            "Ignore them",
+            "Turn the volume up",
+            "Hide the tab"
+        ],
+        correct: 0
+    },
+    {
+        q: "Digital citizenship with audio means:",
+        options: [
+            "Using sound in ways that are safe, respectful, and follow rules",
+            "Using sound only to annoy others",
+            "Ignoring all rules",
+            "Sharing copyrighted music freely"
+        ],
+        correct: 0
+    }
+];
+
+/* ------------------------------
+   RANDOMIZE QUESTIONS
+--------------------------------*/
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(baseQuestions);
+const selected = baseQuestions.slice(0, 15);
+
+/* ------------------------------
+   RENDER QUIZ WITH SHUFFLED ANSWERS
+--------------------------------*/
+function renderQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+
+    selected.forEach((qObj, index) => {
+        const div = document.createElement("div");
+        div.style.marginBottom = "20px";
+
+        const qText = document.createElement("p");
+        qText.textContent = (index + 1) + ". " + qObj.q;
+        div.appendChild(qText);
+
+        // Shuffle answers
+        const answers = qObj.options.map((opt, i) => ({ text: opt, index: i }));
+        shuffle(answers);
+
+        // Store correct index after shuffle
+        qObj.shuffledCorrect = answers.findIndex(a => a.index === qObj.correct);
+
+        answers.forEach((ans, ansIndex) => {
+            const label = document.createElement("label");
+            label.style.display = "block";
+
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "q" + index;
+            radio.value = ansIndex;
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(" " + ans.text));
+            div.appendChild(label);
+        });
+
+        container.appendChild(div);
+    });
+}
+
+renderQuiz();
+
+/* ------------------------------
+   SUBMIT QUIZ
+--------------------------------*/
+document.getElementById("submitBtn").addEventListener("click", function () {
+    let correct = 0;
+    let incorrect = 0;
+
+    selected.forEach((qObj, index) => {
+        const radios = document.getElementsByName("q" + index);
+        let chosen = null;
+
+        for (let r of radios) {
+            if (r.checked) {
+                chosen = parseInt(r.value, 10);
+                break;
+            }
+        }
+
+        if (chosen === qObj.shuffledCorrect) {
+            correct++;
+        } else {
+            incorrect++;
+        }
+    });
+
+    const total = selected.length;
+    const percent = Math.round((correct / total) * 10000) / 100;
+
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `Score: ${percent}%<br>Correct: ${correct}/${total}<br>Incorrect: ${incorrect}`;
+
+    if (incorrect > 2) {
+        resultDiv.innerHTML += "<br><br>You missed more than 2. Restart required.";
+        document.getElementById("submitBtn").style.display = "none";
+        document.getElementById("restartBtn").style.display = "inline-block";
+    } else {
+        setCookie("quizPassed", "true", 7);
+        resultDiv.innerHTML += "<br><br>Quiz passed! Redirecting...";
+        setTimeout(() => window.location.href = "/index.html", 2000);
+    }
+});
+
+function restartQuiz() {
+    window.location.reload();
+}
+</script>
+
+</body>
+</html>
