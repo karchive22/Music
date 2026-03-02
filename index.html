@@ -115,7 +115,7 @@ function explicitWarning() {
 const OVERRIDE_CODE = "F0ll0W_Th3_Rules!";
 
 function teacherOverridePrompt() {
-    const input = prompt("Teacher override: enter authorization code.");
+    const input = prompt("Quiz Override Code: Please enter the override code to bypass the quiz!");
     if (!input) return;
     if (input === OVERRIDE_CODE) {
         setCookie("quizOverride", "true", 7);
