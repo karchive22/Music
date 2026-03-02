@@ -4,26 +4,56 @@
     <link rel="stylesheet" href="style.css">
     <title>Music Player Online</title>
     <link rel="icon" type="image/png" href="favicon.png">
-</head>
 
-<script>
-alert("Do not use this to blast up in public places like schools, etc. I am not responsible for any trouble if you blast up any music and get in trouble. Use this at your own risk. I am not responsible for any damage to your ears or any other damage that may occur from using this website.");
-</script>
+    <script>
+    // GLOBAL ACCESS CHECK — prevents URL bypass
+    (function() {
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(";").shift();
+            return null;
+        }
+
+        const unlocked = getCookie("quizPassed") === "true" || getCookie("quizOverride") === "true";
+
+        // Pages that NEVER require quiz
+        const allowedPages = [
+            "/",
+            "/index.html",
+            "/quiz.html",
+            "/Music/SecretCode/index.html",
+            "/style.css",
+            "/favicon.png"
+        ];
+
+        const current = window.location.pathname;
+
+        // If user tries to open ANY Music/ page directly → redirect
+        if (!unlocked && current.startsWith("/Music/") && !allowedPages.includes(current)) {
+            window.location.href = "/quiz.html";
+        }
+    })();
+
+    alert("Do not use this to blast up in public places like schools, etc. Use at your own risk.");
+    </script>
+</head>
 
 <body>
 <link rel="stylesheet" href="style.css">
 
 <h1 class="CenterColor">Music Player Online</h1>
-<h2 class="CenterColor">Used some code from GitHub in order to assist along with AI. Also if you're going to let your children listen to music IT IS NOT FOR children/kids!!!!!</h2>
-<h3 class="CenterColor">Also all of the warnings in the music apply to download rules too!!!!</h3>
+<h2 class="CenterColor">Used some code from GitHub along with AI. NOT for children.</h2>
+<h3 class="CenterColor">Warnings apply to downloads too.</h3>
 
-<!-- ⭐ NEW PASSWORD UNLOCK BAR ⭐ -->
+<!-- PASSWORD UNLOCK -->
 <div class="CenterColor" style="margin-top:20px;">
     <input id="unlockInput" type="password" placeholder="Enter the override quiz code here" 
            style="padding:10px; width:250px; font-size:16px;">
     <button onclick="unlockPassword()" style="padding:10px; font-size:16px;">Unlock</button>
 </div>
-<h3> By typing the code, <a href="Music/SecretCode/index.html">Your agreeing to the rules</a></h3>
+
+<h3>By typing the code, <a href="Music/SecretCode/index.html">you agree to the rules</a></h3>
 <p class="CenterColor" style="font-size: 12px; cursor: pointer; text-decoration: underline;" onclick="teacherOverridePrompt()">Quiz Override Code</p>
 
 <div id="searchContainer">
@@ -31,33 +61,48 @@ alert("Do not use this to blast up in public places like schools, etc. I am not 
 </div>
 
 <div class="button-container">
+
     <a class="button" href="Music/67PhonkSpyrix.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/67PhonkSpyrix.png" alt=""></div>Phonk | 67 Phonk - Spyrix</a>
+
     <a class="button" href="Music/FireSongSlavaMarshmallow.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/SlavaFireSong.png" alt=""></div>(Russian) Pop | SLAVA MARLOW - Ты Горишь Как Огонь</a>
+
     <a class="button" href="Music/ThreeStripesSong.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/threestripes.png" alt=""></div>(Russian) Pop | ТРИ ПОЛОСКИ / KOLM TRIIPU / THREE STRIPES</a>
+
     <a class="button" href="Music/NitroLXN.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/Nitro.png" alt=""></div>Phonk | NITRO - LXNGVX</a>
+
     <a class="button" href="Music/BigDawgs.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/bigdawgs.png" alt=""></div>(Indian) Hip-Hop | Big Dawgs - Hanumankind</a>
+
     <a class="button" href="Music/IssamAlnajjar.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/Issam Alnajjar.png" alt=""></div>(Arabic) Hip-Hop | Issam Alnajjar - Hadal Ahbek</a>
+
     <a class="button" href="Music/tvoff.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/tvoff.png" alt=""></div>Conscious Hip-Hop | Tv Off - Kendrick Lamar</a>
+
     <a class="button" href="Music/traproyaltyextended.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/traproyaltyextended.png" alt=""></div>Cinematic Trap | Trap Royalty Extended</a>
+
     <a class="button" href="Music/odnogoultrafunk.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/odnogoultrafunk.png" alt=""></div>(Russian) UltraPhonk | Odnogo Phonk - VaporVice</a>
+
     <a class="button" href="Music/mashaultrafunk.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/mashaultrafunk.png" alt=""></div>(Russian) UltraPhonk | Masha Phonk - Histed</a>
+
     <a class="button" href="Music/skibidilittlebig.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/littlebigskibidi.png" alt=""></div>(Russian) Dance-Pop | Skibidi - Little Big</a>
+
     <a class="button" href="Music/banndabanda.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/banndabanda.png" alt=""></div>(Polish) Aggressive Rap | Bannda - Banda</a>
+
     <a class="button" href="Music/Banndabandaspedup.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/banndabanda.png" alt=""></div>(Polish) Aggressive Rap | Bannda - Banda (Sped Up)</a>
+
     <a class="button" href="Music/withoutyoukevin.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/withoutyoukevin.png" alt=""></div>Friendly Pop | Without you - K3vin_g</a>
+
     <a class="button" href="Music/goodmorningbabbyjayy.html" onclick="return explicitWarning()"><div class="img-box"><img src="Music/Images/GoodMorningBabyJayy.png" alt=""></div>Friendly Pop | Good Morning - Baby Jayy</a>
+
 </div>
 
 <p class="CenterColor">Click any song to unlock access.</p>
 
 <script>
-function searchButtons() {
-    const input = document.getElementById("searchInput").value.toLowerCase();
-    const buttons = document.querySelectorAll(".button");
-    buttons.forEach(btn => {
-        const text = btn.innerText.toLowerCase();
-        btn.style.display = text.includes(input) ? "flex" : "none";
-    });
+const UNLOCK_PASSWORD = "Un_L0cked123!";
+const OVERRIDE_CODE = "F0ll0W_Th3_Rules!";
+
+function setCookie(name, value, days) {
+    const maxAge = days * 24 * 60 * 60;
+    document.cookie = `${name}=${value}; path=/; max-age=${maxAge}`;
 }
 
 function getCookie(name) {
@@ -67,25 +112,37 @@ function getCookie(name) {
     return null;
 }
 
-function setCookie(name, value, days) {
-    const maxAge = days * 24 * 60 * 60;
-    document.cookie = `${name}=${value}; path=/; max-age=${maxAge}`;
-}
-
-// ⭐ NEW TOP-OF-PAGE PASSWORD UNLOCK ⭐
-const UNLOCK_PASSWORD = "Un_L0cked123!";
-
 function unlockPassword() {
     const input = document.getElementById("unlockInput").value;
     if (input === UNLOCK_PASSWORD) {
         setCookie("quizPassed", "true", 7);
         alert("Unlocked successfully!");
+        location.reload();
     } else {
         alert("Incorrect password.");
     }
 }
 
-// Called when clicking any song
+function teacherOverridePrompt() {
+    const input = prompt("Teacher override: enter authorization code.");
+    if (input === OVERRIDE_CODE) {
+        setCookie("quizOverride", "true", 7);
+        alert("Override enabled.");
+        location.reload();
+    } else if (input) {
+        alert("Incorrect override code.");
+    }
+}
+
+function searchButtons() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const buttons = document.querySelectorAll(".button");
+    buttons.forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        btn.style.display = text.includes(input) ? "flex" : "none";
+    });
+}
+
 function explicitWarning() {
     const quizPassed = getCookie("quizPassed") === "true";
     const override = getCookie("quizOverride") === "true";
@@ -93,24 +150,8 @@ function explicitWarning() {
     if (quizPassed || override) {
         return true;
     } else {
-        // redirect to quiz in root directory
         window.location.href = "quiz.html";
         return false;
-    }
-}
-
-
-// Teacher override code
-const OVERRIDE_CODE = "F0ll0W_Th3_Rules!";
-
-function teacherOverridePrompt() {
-    const input = prompt("Teacher override: enter authorization code.");
-    if (!input) return;
-    if (input === OVERRIDE_CODE) {
-        setCookie("quizOverride", "true", 7);
-        alert("Override enabled on this device.");
-    } else {
-        alert("Incorrect override code.");
     }
 }
 </script>
