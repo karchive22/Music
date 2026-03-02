@@ -9,6 +9,7 @@
     const unlocked = getCookie("quizPassed") === "true" || getCookie("quizOverride") === "true";
 
     if (!unlocked) {
-        window.location.href = "../quiz.html";
+        // Works locally AND on GitHub Pages
+        window.location.href = window.location.origin + window.location.pathname.replace(/\/Music\/.*/, "/Music/quiz.html");
     }
 })();
