@@ -27,7 +27,7 @@
 
     // If opened in new tab, typed URL, or came from outside:
     if (!cameFromIndex) {
-        window.location.href = "../index.html";
+        window.location.href = "/Music/index.html";
         return;
     }
 
