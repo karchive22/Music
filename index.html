@@ -100,18 +100,6 @@ function unlockPassword() {
 }
 
 // Called when clicking any song
-function explicitWarning() {
-    const quizPassed = getCookie("quizPassed") === "true";
-    const override = getCookie("quizOverride") === "true";
-
-    if (quizPassed || override) {
-        return true;
-    } else {
-        // redirect to quiz in root directory
-        window.location.href = "quiz.html";
-        return false;
-    }
-}
 
 
 // Teacher override code
@@ -131,6 +119,7 @@ function teacherOverridePrompt() {
 
 </body>
 </html>
+
 
 
 
